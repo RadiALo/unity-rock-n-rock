@@ -3,34 +3,46 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 [RequireComponent (typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Inventory))]
 public class Movement : MonoBehaviour
 {
-    public Transform groundCheck;
-    public LayerMask groundLayer;
+    [SerializeField]
+    private Transform groundCheckTransform;
+
+    [SerializeField]
+    private LayerMask groundLayer;
 
     private Animator animator;
     private new Rigidbody2D rigidbody;
     private SpriteRenderer spriteRenderer;
+    private Inventory inventory;
 
-    public float speed = 5f;
-    public float jumpForce = 8f;
-    public float jumpAdditionalForce = 0.75f;
-    public float maxJumpTime = 0.8f;
+    [SerializeField]
+    private float speed = 5f;
+    [SerializeField]
+    private float jumpForce = 8f;
+    [SerializeField]
+    private float jumpAdditionalForce = 0.75f;
+    [SerializeField]
+    private float maxJumpTime = 0.8f;
 
     private bool isGrounded;
     private float jumpTimer;
 
-    void Update()
+    private void Update()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
 
         if (horizontalInput != 0f)
         {
             spriteRenderer.flipX = horizontalInput > 0;
+
+            inventory.Flip(spriteRenderer.flipX);
+
             transform.Translate(new Vector3(horizontalInput, 0, 0) * speed * Time.deltaTime);
         }
 
-        isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, 0.1f, groundLayer);
+        isGrounded = Physics2D.Raycast(groundCheckTransform.position, Vector2.down, 0.1f, groundLayer);
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
@@ -62,11 +74,12 @@ public class Movement : MonoBehaviour
             animator.Play("Idle");
         }
     }
-
+    
     private void Start()
     {
         animator = GetComponent<Animator>();
         rigidbody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        inventory = GetComponent<Inventory>();
     }
 }
