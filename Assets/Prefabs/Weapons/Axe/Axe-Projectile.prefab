@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fb17bd4b87728849b5544cb8c0b27ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stopsByWalls: 1
+  stopsByWalls: 0
   isPlayerOwner: 1
   damage: 1
 --- !u!50 &7459020808003783755
