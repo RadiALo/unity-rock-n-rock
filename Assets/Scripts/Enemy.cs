@@ -36,6 +36,7 @@ public class Enemy : MonoBehaviour
 
         if (health <= 0)
         {
+            LevelData.Instance.EnemyDie();
             Destroy(gameObject);
         }
     }

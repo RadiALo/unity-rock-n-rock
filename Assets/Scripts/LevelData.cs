@@ -19,11 +19,9 @@ public class LevelData : MonoBehaviour
 
     private static LevelData instance;
 
-    public List<int> WeaponsForStar;
+    public int WeaponsForStar;
 
     public int EnemiesCount = 0;
-
-    public int WeaponsCount = 0;
 
     public int WeaponsUsed = 0;
 
@@ -35,12 +33,19 @@ public class LevelData : MonoBehaviour
 
         if (enemiesKilled == EnemiesCount)
         {
+            Debug.Log("win");
             FinishLevel();
         }
     }
 
     private void FinishLevel()
     {
+        WinMenu winMenu = FindAnyObjectByType<WinMenu>();
 
+        winMenu.ShowWinWindow(
+            FindAnyObjectByType<Player>().Health == 3,
+            WeaponsUsed <= WeaponsForStar,
+            EnemiesCount == enemiesKilled
+        );
     }
 }
