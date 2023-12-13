@@ -19,6 +19,8 @@ public class LevelData : MonoBehaviour
 
     private static LevelData instance;
 
+    public bool IsGameFinished = false;
+
     [SerializeField]
     private int level;
 
@@ -38,6 +40,15 @@ public class LevelData : MonoBehaviour
         {
             FinishLevel();
         }
+    }
+
+    public void LoseLevel()
+    {
+        LoseMenu loseMenu = FindAnyObjectByType<LoseMenu>();
+
+        loseMenu.ShowLoseWindow();
+
+        IsGameFinished = true;
     }
 
     private void FinishLevel()
@@ -67,5 +78,7 @@ public class LevelData : MonoBehaviour
         }
 
         gameData.Save();
+
+        IsGameFinished = true;
     }
 }

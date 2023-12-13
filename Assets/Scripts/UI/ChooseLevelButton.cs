@@ -9,6 +9,5 @@ public class ChooseLevelButton : MonoBehaviour
     public void OpenLevel()
     {
         SceneManager.LoadScene("Level " + level.ToString());
-
     }
 }
