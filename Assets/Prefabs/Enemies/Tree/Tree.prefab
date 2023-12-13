@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6492467623822222331}
   - component: {fileID: 2760245175650182885}
   - component: {fileID: 8545224777432966075}
-  - component: {fileID: 932735101393020888}
   m_Layer: 8
   m_Name: AttackZone
   m_TagString: Untagged
@@ -82,14 +81,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
---- !u!222 &932735101393020888
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7553077228843628744}
-  m_CullTransparentMesh: 1
 --- !u!1 &7728590496314493897
 GameObject:
   m_ObjectHideFlags: 0

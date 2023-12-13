@@ -33,6 +33,11 @@ public class Inventory : MonoBehaviour
 
     public void CollectProjectile(Projectile projectile)
     {
+        if (LevelData.Instance.IsGameFinished)
+        {
+            return;
+        }
+
         for (int i = 0; i < projectiles.Count; i++)
         {
             if (projectiles[i].Projectile == projectile)
@@ -70,6 +75,11 @@ public class Inventory : MonoBehaviour
 
     private void Throw()
     {
+        if (LevelData.Instance.IsGameFinished)
+        {
+            return;
+        }
+
         if (projectiles.Count > choosenProjectile)
         {
             LevelData.Instance.WeaponsUsed++;

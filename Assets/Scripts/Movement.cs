@@ -31,6 +31,11 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
+        if (LevelData.Instance.IsGameFinished)
+        {
+            return;
+        }
+
         float horizontalInput = Input.GetAxis("Horizontal");
 
         if (horizontalInput != 0f)
