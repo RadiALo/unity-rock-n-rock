@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Inventory : MonoBehaviour
 {
@@ -13,9 +14,14 @@ public class Inventory : MonoBehaviour
 
     [SerializeField]
     private List<ProjectileSlot> projectiles = new List<ProjectileSlot>();
+    public List<ProjectileSlot> Projectiles { get => projectiles; }
 
     private bool isFliped = true;
     private int choosenProjectile = 0;
+    public int ChoosenProjectile { get => choosenProjectile; }
+
+    public UnityEvent<List<ProjectileSlot>> OnInventoryChanged = new();
+    public UnityEvent<int> OnChoosenChanged = new();
 
     private void Update()
     {
@@ -32,11 +38,16 @@ public class Inventory : MonoBehaviour
             if (projectiles[i].Projectile == projectile)
             {
                 projectiles[i].Count++;
+
+                OnInventoryChanged.Invoke(projectiles);
+
                 return;
             }
         }
 
         projectiles.Add(new ProjectileSlot(projectile, 1));
+
+        OnInventoryChanged.Invoke(projectiles);
 
         ShiftChoosen(-(choosenProjectile + 1));
     }
@@ -86,6 +97,8 @@ public class Inventory : MonoBehaviour
 
                 ShiftChoosen(-1);
             }
+
+            OnInventoryChanged.Invoke(projectiles);
         }
     }
 
@@ -112,10 +125,12 @@ public class Inventory : MonoBehaviour
 
         spriteRenderer.sprite = projectiles[choosenProjectile].Projectile
             .GetComponent<SpriteRenderer>().sprite;
+
+        OnChoosenChanged.Invoke(choosenProjectile);
     }
 
     [Serializable]
-    private class ProjectileSlot
+    public class ProjectileSlot
     {
         public Projectile Projectile;
 

@@ -9,8 +9,6 @@ public class AttackZone : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.name);
-
         if (other.CompareTag("Player"))
         {
             other.GetComponent<Player>().TakeDamage(damage);
