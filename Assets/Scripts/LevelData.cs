@@ -19,11 +19,12 @@ public class LevelData : MonoBehaviour
 
     private static LevelData instance;
 
-    public List<int> WeaponsForStar;
+    [SerializeField]
+    private int level;
+
+    public int WeaponsForStar;
 
     public int EnemiesCount = 0;
-
-    public int WeaponsCount = 0;
 
     public int WeaponsUsed = 0;
 
@@ -41,6 +42,30 @@ public class LevelData : MonoBehaviour
 
     private void FinishLevel()
     {
+        WinMenu winMenu = FindAnyObjectByType<WinMenu>();
 
+        int starsCount = (FindAnyObjectByType<Player>().Health == 3 ? 1 : 0)
+            + (WeaponsUsed <= WeaponsForStar ? 1 : 0)
+            + (EnemiesCount == enemiesKilled ? 1 : 0);
+
+        winMenu.ShowWinWindow(
+            FindAnyObjectByType<Player>().Health == 3,
+            WeaponsUsed <= WeaponsForStar,
+            EnemiesCount == enemiesKilled
+        );
+
+        GameData gameData = GameData.Load();
+
+        for (int i = gameData.StarsCount.Count; i <= level; i++)
+        {
+            gameData.StarsCount.Add(0);
+        }
+
+        if (gameData.StarsCount[level] < starsCount)
+        {
+            gameData.StarsCount[level] = starsCount;
+        }
+
+        gameData.Save();
     }
 }

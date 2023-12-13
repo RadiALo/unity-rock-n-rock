@@ -52,6 +52,8 @@ public class Inventory : MonoBehaviour
             );
 
             isFliped = IsFlip;
+
+            spriteRenderer.flipX = IsFlip;
         }
     }
 
@@ -70,9 +72,9 @@ public class Inventory : MonoBehaviour
             if (!isFliped)
             {
                 newProjectile.transform.localScale = new Vector3(
-                    -1f,
-                    1f,
-                    1f
+                    -newProjectile.transform.localScale.x,
+                    newProjectile.transform.localScale.y,
+                    newProjectile.transform.localScale.z
                 );
             }
 

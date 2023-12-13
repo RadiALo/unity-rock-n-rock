@@ -31,7 +31,6 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.name);
         if (stopsByWalls && other.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             Destroy(gameObject);
