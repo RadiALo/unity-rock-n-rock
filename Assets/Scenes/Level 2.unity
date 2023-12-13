@@ -1743,6 +1743,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 992084553b60d9a44ae8d2152fd3ecfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 1
   WeaponsForStar: 6
   EnemiesCount: 0
   WeaponsUsed: 0
