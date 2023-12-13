@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
@@ -9,8 +10,12 @@ public class Player : MonoBehaviour
 
     public int Health { get => health; }
 
+    public UnityEvent<int> OnHealthChanged = new();
+
     public void TakeDamage(int Damage) {
         health -= Damage;
+
+        OnHealthChanged.Invoke(health);
 
         if (health <= 0)
         {
