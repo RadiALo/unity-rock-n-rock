@@ -7,6 +7,11 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private Projectile projectile;
 
+    private void Start()
+    {
+        LevelData.Instance.WeaponsCount++;
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
