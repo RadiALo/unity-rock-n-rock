@@ -1,10 +1,14 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
 public class Projectile : MonoBehaviour
 {
     [SerializeField]
-    private bool isPlayerOwner;
+    private bool stopsByWalls = true;
+    [SerializeField]
+    private bool isPlayerOwner = true;
+    [SerializeField]
+    private int damage = 1;
+
 
     float lifeTime;
         
@@ -27,12 +31,19 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        Debug.Log(other.name);
+        if (stopsByWalls && other.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-            // Player collision
-        } else if (other.CompareTag("Enemy"))
+            Destroy(gameObject);
+        }
+        if (!isPlayerOwner && other.CompareTag("Player"))
         {
-            // Enemy collision
+            other.GetComponent<Player>().TakeDamage(damage);
+            Destroy(gameObject);
+        } else if (isPlayerOwner && other.CompareTag("Enemy"))
+        {
+            other.GetComponent<Enemy>().TakeDamage(damage);
+            Destroy(gameObject);
         }
     }
 }

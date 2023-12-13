@@ -59,6 +59,8 @@ public class Inventory : MonoBehaviour
     {
         if (projectiles.Count > choosenProjectile)
         {
+            LevelData.Instance.WeaponsUsed++;
+
             GameObject newProjectile = Instantiate(
                 projectiles[choosenProjectile].Projectile.gameObject,
                 throwTransform.position,
